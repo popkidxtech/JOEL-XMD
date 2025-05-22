@@ -55,7 +55,7 @@ const playHandler = async (m, sock) => {
       await sock.sendMessage(m.from, {
         image: { url: joel },
         caption: `\`\`\`╭─❍「 ᴍᴜsɪᴄ ᴅᴇᴛᴀɪʟs 」❍
-│  🎵 *Title:* ${title}
+│  🎵 *Title:* ${result.title}
 ╰───────────────━⊷
 ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴏʀᴅ ᴊᴏᴇʟ\`\`\``,
         contextInfo: {
@@ -72,7 +72,7 @@ const playHandler = async (m, sock) => {
 
       // 2. Send audio
       await sock.sendMessage(m.from, {
-        audio: { url: audio },
+        audio: { url: result.audio },
         mimetype: "audio/mpeg",
         ptt: false,
         caption: `now playing ↻ ◁ II ▷ ↺`,
