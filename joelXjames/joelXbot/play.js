@@ -37,7 +37,7 @@ const playHandler = async (m, sock) => {
       const response = await axios.get(apiUrl);
       const data = response.data;
 
-      if (!data?.status || !data?.result || !data.result.title) {
+      if (!data?.status || !data?.result || !data.title) {
         await sock.sendMessage(m.from, {
           text: "```Uh-oh! No results found for that song!```",
         }, { quoted: m });
@@ -72,7 +72,7 @@ const playHandler = async (m, sock) => {
 
       // 2. Send audio
       await sock.sendMessage(m.from, {
-        audio: { url: result.audio },
+        audio: { url: audio },
         mimetype: "audio/mpeg",
         ptt: false,
         caption: `now playing ↻ ◁ II ▷ ↺`,
