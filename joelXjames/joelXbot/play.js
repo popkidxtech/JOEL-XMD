@@ -37,7 +37,7 @@ const playHandler = async (m, sock) => {
       const response = await axios.get(apiUrl);
       const data = response.data;
 
-      if (!data?.status || !data?.result || !data.result.audio) {
+      if (!data?.status || !data?.result || !data.result.title) {
         await sock.sendMessage(m.from, {
           text: "```Uh-oh! No results found for that song!```",
         }, { quoted: m });
@@ -49,18 +49,13 @@ const playHandler = async (m, sock) => {
       const {
         title = 'Unknown',
         audio,
-        duration = '0:00',
-        views = 'N/A',
-        published = 'N/A',
       } = data.result;
 
       // 1. Send song info
       await sock.sendMessage(m.from, {
-        image: { url: thumbnail },
+        image: { url: joel },
         caption: `\`\`\`╭─❍「 ᴍᴜsɪᴄ ᴅᴇᴛᴀɪʟs 」❍
 │  🎵 *Title:* ${title}
-│  👁 *Views:* ${views}
-│  🗓 *Published:* ${published}
 ╰───────────────━⊷
 ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴏʀᴅ ᴊᴏᴇʟ\`\`\``,
         contextInfo: {
