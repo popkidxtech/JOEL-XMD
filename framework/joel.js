@@ -59,12 +59,12 @@ export async function playHandler(m, sock, prefix) {
 │  Duration: ${duration}
 │  Views: ${views}
 │  Published: N/A
-╰───────────────━⊷
-Powered by LORD JOEL\`\`\``,
+╰───────────────❍
+ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴏʀᴅ ᴊᴏᴇʟ\`\`\``,
       contextInfo: {
         externalAdReply: {
           title: title,
-          body: "Playing via JOEL XMD Bot",
+          body: " ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴏʀᴅ ᴊᴏᴇʟ",
           thumbnailUrl: joelThumbnail,
           sourceUrl: url,
           mediaType: 1,
@@ -92,7 +92,7 @@ Powered by LORD JOEL\`\`\``,
           serverMessageId: -1,
         },
         externalAdReply: {
-          title: "JOEL XMD BOT by LORD JOEL",
+          title: " ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴏʀᴅ ᴊᴏᴇʟ",
           body: "Playing now ↻ ◁ II ▷ ↺",
           thumbnailUrl: thumbnail,
           sourceUrl: url,
