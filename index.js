@@ -121,16 +121,20 @@ async function start() {
     try {
         const { state, saveCreds } = await useMultiFileAuthState(sessionDir);
         const { version, isLatest } = await fetchLatestBaileysVersion();
-        console.log(`joel md using WA v${version.join('.')}, isLatest: ${isLatest}`);
-
+        console.log(`joel Xmd is using WA v${version.join('.')}, isLatest: ${isLatest}`);
+        
         const Matrix = makeWASocket({
             version,
             logger: pino({ level: 'silent' }),
             printQRInTerminal: useQR,
-            browser: ["ʝσєℓ χ∂", "safari", "3.3"],
+            browser: ["JOEL-XMD", "safari", "3.3"],
             auth: state,
             getMessage: async (key) => {
-                return { conversation: "joel md whatsapp user bot" };
+                if (store) {
+                    const msg = await store.loadMessage(key.remoteJid, key.id);
+                    return msg.message || undefined;
+                }
+                return { conversation: "\`\`\`joel Xmd whatsapp user bot\`\`\`" };
             }
         });
 
@@ -142,7 +146,7 @@ async function start() {
                 }
             } else if (connection === 'open') {
                 if (initialConnection) {
-                    console.log(chalk.green("✔️  ᴊᴏᴇʟ-xᴍᴅ ɪs ɴᴏᴡ ᴏɴʟɪɴᴇ ᴀɴᴅ ᴘᴏᴡᴇʀᴇᴅ ᴜᴘ"));
+                    console.log(chalk.green("joel Xmd is connected successful Don't forgot to give a star ⭐"));
 
                     const startingMessageData = await getStartingMessageData();
 
