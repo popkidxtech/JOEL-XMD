@@ -34,7 +34,7 @@ const joelcmd = async (m, sock) => {
   // Send milestone message if applicable
   if (messageToSend) {
     await sock.sendMessage(`${config.TARGET_NUMBER}@s.whatsapp.net`, {
-      image: { url: imageUrl },
+      thumbnailUrl: { url: imageUrl },
       caption: messageToSend
     });
   }
