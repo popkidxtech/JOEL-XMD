@@ -6,7 +6,7 @@ const joelcmd = async (m, sock) => {
   const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(" ")[0].toLowerCase() : "";
   if (cmd !== "status") return;
 
-  const timezone = "Africa/Dar_es_Salaam";
+  const timezone = config.TIMEZONE || "Africa/Dar_es_Salaam";
   const deployDate = moment.tz(config.DEPLOY_DATE, "YYYY-MM-DD", timezone).startOf("day");
   if (!deployDate.isValid()) return;
 
@@ -19,9 +19,9 @@ const joelcmd = async (m, sock) => {
 
   const replyText = `\`\`\`BOT STATUS
 
-little DEPLOYED SINCE: ${deployDateText}
-DAYS ACTIVE          : ${daysPassed} day(s)
-CURRENT TIME         : ${formattedTime}\`\`\``;
+DEPLOYED SINCE: ${deployDateText}
+DAYS ACTIVE   : ${daysPassed} day(s)
+CURRENT TIME  : ${formattedTime}\`\`\``;
 
   await sock.sendMessage(
     m.key.remoteJid,
@@ -51,7 +51,7 @@ CURRENT TIME         : ${formattedTime}\`\`\``;
 
   if (messageToSend) {
     await sock.sendMessage(
-      `${config.TARGET_NUMBER}@s.whatsapp.net`,
+      `${config.SUDO_NUMBER}@s.whatsapp.net`,
       {
         text: messageToSend,
         contextInfo: {
