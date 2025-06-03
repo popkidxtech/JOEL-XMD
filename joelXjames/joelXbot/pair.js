@@ -40,18 +40,13 @@ const pairHandler = async (m, gss) => {
     }
 
     const code = response.data.code;
-
-    const thumbBuffer = await axios.get("https://raw.githubusercontent.com/joeljamestech2/JOEL-XMD/refs/heads/main/mydata/media/Xstarting.jpg", { responseType: "arraybuffer" });
+    const thumbBuffer = await axios.get(
+      "https://raw.githubusercontent.com/joeljamestech2/JOEL-XMD/refs/heads/main/mydata/media/Xstarting.jpg",
+      { responseType: "arraybuffer" }
+    );
 
     await gss.sendMessage(m.from, {
-      text: `${code}*`,
-      buttons: [
-        {
-          buttonId: "https://whatsapp.com/channel/0029Vak2PevK0IBh2pKJPp2K",
-          buttonText: { displayText: "join my channel" },
-          type: 1
-        }
-      ],
+      text: `${code}`,
       contextInfo: {
         isForwarded: true,
         forwardingScore: 777,
