@@ -1,3 +1,62 @@
+import config from '../../config.cjs';
+
+const antileftCmd = async (m, Matrix) => {
+  const prefix = config.PREFIX;
+  const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(' ')[0].toLowerCase() : '';
+  const text = m.body.slice(prefix.length + cmd.length).trim();
+
+  if (cmd === 'antileft') {
+    if (!m.isGroup) 
+      return m.reply('```👥 This command only works in groups!```');
+
+    const groupMetadata = await Matrix.groupMetadata(m.from);
+    const participants = groupMetadata.participants;
+    const botNumber = await Matrix.decodeJid(Matrix.user.id);
+    const botAdmin = participants.find(p => p.id === botNumber)?.admin;
+    const senderAdmin = participants.find(p => p.id === m.sender)?.admin;
+
+    if (!botAdmin) 
+      return m.reply('⚠️ ```I need to be admin to manage anti-left.```');
+    if (!senderAdmin) 
+      return m.reply('```Only group admins can toggle anti-left.```');
+
+    let responseMessage;
+
+    if (text === 'on') {
+      config.ANTILEFT = true;
+      responseMessage = '```Anti-Left feature is now ENABLED!*\n_I will add back members who try to leave._```';
+    } else if (text === 'off') {
+      config.ANTILEFT = false;
+      responseMessage = '```Anti-Left feature is now DISABLED.*\n_Members can leave freely.```';
+    } else {
+      responseMessage = 
+`📢 *ANTILEFT COMMAND*
+
+Toggle automatic re-add of members who leave the group.
+
+*Usage:*
+\`antileft on\`  — Enable anti-left feature
+\`antileft off\` — Disable anti-left feature
+
+_Only group admins can use this command._
+⚠️ Bot must be admin to function properly.`;
+    }
+
+    try {
+      await Matrix.sendMessage(m.from, { text: responseMessage }, { quoted: m });
+    } catch (error) {
+      console.error('[ANTILEFT CMD ERROR]', error);
+      await Matrix.sendMessage(m.from, { text: '❌ *Oops! Something went wrong.*' }, { quoted: m });
+    }
+  }
+};
+
+export default antileftCmd;
+
+
+
+
+/*
 // commands/group/antileft.js import fs from 'fs'; import moment from 'moment-timezone';
 
 const antileftPath = './antileft.json'; const antileftData = fs.existsSync(antileftPath) ? JSON.parse(fs.readFileSync(antileftPath)) : {};
@@ -56,3 +115,4 @@ let profile;
 
 export default groupParticipantsUpdate;
 
+*/
