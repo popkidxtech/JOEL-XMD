@@ -11,41 +11,47 @@ const pairHandler = async (m, gss) => {
   if (!validCommands.includes(cmd)) return;
 
   if (!textnumber) {
-    return m.reply("Please provide a phone number.\nExample: *.pair 255714595078*");
+    return m.reply("```Please provide a phone number.\nExample: .pair 255714595078```");
+  }
+
+  if (!/^\d{5,15}$/.test(textnumber)) {
+    return m.reply("```Invalid phone number format. Only digits allowed (5–15 characters).```");
   }
 
   try {
-    m.reply("⏳ Fetching pair code...");
+    m.reply("```Fetching pair code from joel Xmd```");
 
-    const api = `https://paircode-3e95e5778b8e.herokuapp.com/pair?phone=${encodeURIComponent(textnumber)}`;
-    const response = await axios.get(api);
+    const apiUrl = `https://joel-xmd-bot.onrender.com/code?number=${encodeURIComponent(textnumber)}`;
+    const response = await axios.get(apiUrl);
     const data = response.data;
 
-    if (!data?.pair_code) {
-      return m.reply("Failed to retrieve pair code. Check the phone number and try again.");
+    if (!data?.code) {
+      return m.reply("```Failed to retrieve pair code. Try again later or check the number.```");
     }
 
-    const messagePayload = {
-      text: `${data.pair_code}`,
+    await gss.sendMessage(m.from, {
+      text: `${data.code}`,
       contextInfo: {
         isForwarded: true,
         forwardingScore: 777,
         externalAdReply: {
-          title: data.title || "Pair Device",
-          body: data.creator || "Unknown",
-          thumbnailUrl: data.thumbnail || "",
-          sourceUrl: data.channel_link,
+          title: "JOEL XMD PAIR CODE",
+          body: "joel Xmd is now GA",
+          thumbnailUrl: "https://raw.githubusercontent.com/joeljamestech2/JOEL-XMD/refs/heads/main/mydata/media/joelXbot.jpg",
           mediaType: 1,
-          renderLargerThumbnail: false 
+          previewType: "PHOTO",
+          renderLargerThumbnail: false,
+          sourceUrl: "https://whatsapp.com/channel/0029Vak2PevK0IBh2pKJPp2K",
+          showAdAttribution: true,
+          jpegThumbnail: await (await axios.get("https://raw.githubusercontent.com/joeljamestech2/JOEL-XMD/refs/heads/main/mydata/media/Xstarting.jpg", { responseType: "arraybuffer" })).data,
+          mediaUrl: "https://raw.githubusercontent.com/joeljamestech2/JOEL-XMD/refs/heads/main/mydata/media/Xstarting.jpg"
         }
       }
-    };
-
-    await gss.sendMessage(m.from, messagePayload, { quoted: m });
+    }, { quoted: m });
 
   } catch (err) {
     console.error("Pair Cmd Error:", err.message);
-    m.reply("An error occurred:\n" + err.message);
+    m.reply("```An error occurred while retrieving pair code:\n```" + err.message);
   }
 };
 
