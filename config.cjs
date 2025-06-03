@@ -26,6 +26,7 @@ const config = {
   AUTO_REACT: process.env.AUTO_REACT !== undefined ? process.env.AUTO_REACT === 'true' : false,
   AUTO_BLOCK: process.env.AUTO_BLOCK !== undefined ? process.env.AUTO_BLOCK === 'true' : true,
   ANTI_DELETE: process.env.ANTI_DELETE !== undefined ? process.env.ANTI_DELETE === 'true' : false,
+  ANTILEFT: process.env.ANTILEFT !== undefined ? process.env.ANTILEFT === 'true' : true,
   CHAT_BOT: process.env.CHAT_BOT !== undefined ? process.env.CHAT_BOT === 'true' : false,
   CHAT_BOT_MODE: process.env.CHAT_BOT_MODE || "public",
   LYDEA: process.env.LYDEA !== undefined ? process.env.LYDEA === 'true' : false,
